@@ -29,9 +29,6 @@ export class ArticleComponent implements OnInit {
   articleID = "";
   article = new Article();
 
-  public autoComplete$: Observable<any> | undefined;
-  public autoCompleteControl = new FormControl();
-
   constructor(private router: ActivatedRoute, private _searchService:SearchService, private _autoCompleteService:AutocompleteService) { }
 
   ngOnInit(): void {
@@ -47,33 +44,5 @@ export class ArticleComponent implements OnInit {
       },
       error => console.log("exception occured")   
     );
-
-    this.autoComplete$ = this.autoCompleteControl.valueChanges.pipe(
-      startWith(''),
-      // delay emits
-      debounceTime(300),
-      // use switch map so as to cancel previous subscribed events, before creating new once
-      switchMap(value => {
-        if (value !== '') {
-          // lookup from github
-          return this.lookup(value);
-        } else {
-          // if no value is pressent, return null
-          return of(null);
-        }
-      })
-    );
   }
-
-  lookup(value: string): Observable<any> {
-    return this._autoCompleteService.search(value.toLowerCase()).pipe(
-      // map the item property of the github results as our return object
-      map(results => results.items),
-      // catch errors
-      catchError(_ => {
-        return of(null);
-      })
-    );
-}
-
 }

@@ -1,0 +1,62 @@
+<head>
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <style class="cp-pen-styles">body {
+	padding-top: 30px;
+}
+.product {
+	margin-bottom: 30px;
+}
+.product-inner {
+	box-shadow: 0 0 10px rgba(0,0,0,.2);
+	padding: 10px;
+}
+.product img {
+	margin-bottom: 10px;
+}
+    </style>
+</head>
+
+<div class="row card-group">
+    <div fxLayout="row">
+        <div class="row justify-content-center">
+            <div class="col-8 links">
+                <div class="card">
+                    <div class= "card-body">
+                        <div>
+                            <h3 class="card-title">{{article.title}}</h3>
+                        </div>
+                        <br>
+                        <div>
+                            <p class="card-subtitle mb-2 text-muted">{{article.articleAbstract}}</p>
+                        </div>
+                        <div>
+                            <h4 class card-subtitle mb-2>PMID: {{article.pmid}} </h4>
+                        </div>
+                        <div>
+                            <h4 class card-subtitle mb-2>Journal: {{article.journal}} </h4>
+                        </div>
+                        <div>
+                            <label>keywods:</label>
+                            <div>
+                                <mdb-badge *ngFor="let keyword of article.keywords">{{keyword}}</mdb-badge>
+                            </div>
+                        </div>
+                        <br>
+                        <label>authors:</label>
+                        <div>
+                            <mdb-badge *ngFor="let author of article.authorList">{{author}}</mdb-badge>
+                        </div>
+                        <br>
+                        <div>
+                            <label>Publish Date:</label>
+                            {{article.publishDate}}
+                        </div>
+                    </div>
+                    <!-------- Auto Complete Search------->
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

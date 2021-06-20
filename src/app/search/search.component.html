@@ -91,9 +91,21 @@
                                 <mdb-badge *ngFor="let author of article.authorList">{{author}}</mdb-badge>
                             </div>
                             <br>
+                            <label>Tags:</label>
                             <div>
-                                <label>Publish Date:</label>
-                                {{article.publishDate}}
+                                <mdb-badge  *ngFor="let tag of article.tags">
+                                    <a  href= "{{tag['url']}}" >   
+                                        <div>
+                                            WikiID: {{tag['wikiID']}}
+                                        </div>
+                                    </a>
+                                    <div>
+                                        Custom Tag Name: {{tag['customTagName']}}
+                                    </div>
+                                    <div>
+                                        Wiki Tag Name: {{tag['label']}}
+                                    </div>
+                                </mdb-badge>
                             </div>
                         </div>
                     </div>

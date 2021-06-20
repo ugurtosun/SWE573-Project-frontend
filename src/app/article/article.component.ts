@@ -5,6 +5,7 @@ import { SearchService } from '../search.service';
 import { AutocompleteService } from '../autocomplete.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms'
 import { VirtualTimeScheduler } from 'rxjs';
+import { TagArticleService } from '../tag-article.service';
 
 @Component({
   selector: 'app-article',
@@ -21,8 +22,9 @@ export class ArticleComponent implements OnInit {
   customTagName!: string;
   customTagDescription!: string;
   wikiObject = new WikiObject();
+  wikiOptionPassObject!: string;
 
-  constructor(private router: ActivatedRoute, private _searchService:SearchService
+  constructor(private router: ActivatedRoute,private _tagArticleService:TagArticleService, private _searchService:SearchService
     ,private _autoCompleteService:AutocompleteService, private fb : FormBuilder) { }
 
    ngOnInit(): void {
@@ -41,7 +43,16 @@ export class ArticleComponent implements OnInit {
     this.initForm();
   }
 
-   getWikiDatas(): any{
+  selectOption(item:any){
+    this.wikiOptionPassObject=item;
+    console.log("selected");
+  }
+
+  onChange(item: any) {
+    console.log("changeeed");
+  }
+
+   getWikiDatas(){
      this._autoCompleteService.search(this.query).subscribe(
        data =>  {
         console.log("data recieved") 
@@ -57,10 +68,9 @@ export class ArticleComponent implements OnInit {
    initForm(){
 
       this.formGroup = this.fb.group({
-        'wikidata' : ['']
+         query: new FormControl('')
       })
-
-      this.formGroup.get('wikidata')?.valueChanges.subscribe(response => {
+      this.formGroup.get('query')?.valueChanges.subscribe(response => {
         console.log('inittt')
         this.getWikiDatas();
       })
@@ -68,24 +78,36 @@ export class ArticleComponent implements OnInit {
 
    tagArticle(){
 
+    const index = parseInt(this.wikiOptionPassObject);
+    this.wikiObject = this.wikiOptions[index];
     this.wikiObject.customTagName = this.customTagName;
     this.wikiObject.customDescription = this.customTagDescription;
-    console.log(this.wikiObject)
+    this._tagArticleService.tagArticle(this.wikiObject, this.articleID).subscribe(
+      data =>  {
+       console.log("data recieved") 
+       console.log(data)
+      },
+      error => {
+       console.log("noo error")
+      })
    }
 
    displayFn(wikiObject: WikiObject): string {
-    return wikiObject? wikiObject.description: wikiObject;
+    return wikiObject? wikiObject.customDescription: wikiObject;
   }
 }
 
-export class WikiObject {
+export class WikiObject{
 
-  public id!: string;
+  id!: string;
+  wikiID!: string;
+  title!: string;
   label!: string;
   url!: string;
   description!: string;
-  customTagName!: string;
   customDescription!: string;
+  customTagName!: string;
+
 
   constructor() { }
 }

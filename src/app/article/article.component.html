@@ -51,6 +51,71 @@
                             <label>Publish Date:</label>
                             {{article.publishDate}}
                         </div>
+                        <label>Tags:</label>
+                        <div>
+                            <mdb-badge  *ngFor="let tag of article.tags">
+                                <a  href= "{{tag['url']}}" >   
+                                    <div>
+                                        WikiID: {{tag['wikiID']}}
+                                    </div>
+                                </a>
+                                <div>
+                                    Custom Tag Name: {{tag['customTagName']}}
+                                </div>
+                                <div>
+                                    Wiki Tag Name: {{tag['label']}}
+                                </div>
+                            </mdb-badge>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+<div class="row card-group">
+    <div fxLayout="row">
+        <div class="row justify-content-center">
+            <div class="col-8 links">
+                <div class="card">
+                    <div class= "card-body">
+                        <div class="container">
+                            <div class="row" id="tag">
+                                <form #articleForm="ngForm" (ngSubmit) = "tagArticle()">
+                                    <div class="form-group col-xs-9">
+                                        <input class="form-control" type="text" placeholder="Custom Tag Name" name="customTagName" [(ngModel)]="customTagName"/>
+                                    </div>
+                                    <div class="form-group col-xs-9">
+                                        <input class="form-control" type="text" placeholder="Custom description" name="customDescription" [(ngModel)]="customTagDescription" />
+                                    </div>
+                                    <div class="form-group col-xs-3">
+                                        <button type="submit" class="btn btn-block btn-primary">Tag Article</button>
+                                    </div>
+                                    <div class="form-group col-sm-3 col-xs-6">
+                                        <div>
+                                            <label>
+                                                WikiData Query
+                                            </label>
+                                            <input [(ngModel)]= "query" name="query" class="completer-input form-control mdb-autocomplete" (keyup)="getWikiDatas()"  matInput type="text"/>
+                                        </div>  
+                                    </div>
+                                    <div>
+                                        <select [(ngModel)]= "wikiOptionPassObject" [ngModelOptions]="{standalone: true}">
+                                            <option *ngFor= "let wikiOption of wikiOptions; let i = index" [value] = "i">
+                                                {{wikiOption['id']}}  
+                                                {{wikiOption.description}} 
+                                            </option>
+                                        </select>  
+                                    </div>
+        
+                                </form>
+                                <br>
+                                <br>
+                            </div>   
+                        </div>
                     </div>
                 </div>
             </div>
@@ -58,41 +123,16 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="row" id="tag">
-        <form #articleForm="ngForm" (ngSubmit) = "tagArticle()">
-            <div class="form-group col-xs-9">
-                <input class="form-control" type="text" placeholder="Custom Tag Name" name="customTagName" [(ngModel)]="customTagName"/>
-            </div>
-            <div class="form-group col-xs-9">
-                <input class="form-control" type="text" placeholder="Custom description" name="customDescription" [(ngModel)]="customTagDescription" />
-            </div>
-            <div class="form-group col-xs-3">
-                <button type="submit" class="btn btn-block btn-primary">Tag Article</button>
-            </div>
-            <div class="form-group col-sm-3 col-xs-6">.
-                <label class="form-check-label">
-                    Wikidata Object
-                </label>
-            </div>
-        </form>
-    </div>   
-</div>
-<form [formGroup]= "formGroup">
-    <mat-form-field >
-        <mat-label>
-            Here!!
-        </mat-label>
-        <input class="completer-input form-control mdb-autocomplete" name="wikidata" formControlName= "wikidata" matInput type="text"  [matAutocomplete]= "auto"  [(ngModel)]="query" />
-        <mat-autocomplete  #auto="matAutocomplete"  [displayWith]="displayFn"  textNoResults="I have found no results :(" >
-            <mat-option  *ngFor= "let wikiOption of wikiOptions; let i = index" name="wikidata2" formControlName= "wikidata2" [value] = "wikiOptions[i]" [(ngModel)]="wikiObject" >
-                {{wikiOption.id}}  
-                {{wikiOption.description}} 
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>   
-</form>  
 
 
+
+<!--
+<mat-autocomplete  #auto="matAutocomplete"  [displayWith]="displayFn"  textNoResults="I have found no results :(" >
+    <mat-option  *ngFor= "let wikiOption of wikiOptions; let i = index" [value] = "wikiOptions[i]"  [(ngModel)]= "wikiOptionPassObject" name= "wikiOptionPassObject">
+        {{wikiOption.id}}  
+        {{wikiOption.description}} 
+    </mat-option>
+</mat-autocomplete>
+-->
 
 

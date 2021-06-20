@@ -1,3 +1,5 @@
+import { WikiObject } from "./article/article.component";
+
 export class Article {
 
     pmid!: string;
@@ -7,9 +9,11 @@ export class Article {
     keywords!: string[];
     authorList!: string[];
     publishDate!: Date;
+    tags!: WikiObject[];
 
     constructor(){
 
     }
 
 }
+

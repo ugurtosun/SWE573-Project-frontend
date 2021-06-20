@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteService } from './autocomplete.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TagArticleService } from './tag-article.service';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RegisterService,
     SearchService,
     LoginService,
-    AutocompleteService
+    AutocompleteService,
+    TagArticleService
   ],
   bootstrap: [AppComponent]
 })

@@ -2,22 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Article } from '../article';
 import { SearchService } from '../search.service';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { Observable, of } from 'rxjs';
 import { AutocompleteService } from '../autocomplete.service';
-import {
-  startWith,
-  map,
-  debounceTime,
-  mergeMapTo,
-  mergeMap,
-  switchMap,
-  catchError
-} from 'rxjs/operators';
-
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms'
+import { VirtualTimeScheduler } from 'rxjs';
 
 @Component({
   selector: 'app-article',
@@ -26,12 +13,19 @@ import {
 })
 export class ArticleComponent implements OnInit {
 
+  formGroup!: FormGroup;
   articleID = "";
   article = new Article();
+  wikiOptions!: [WikiObject];
+  query!: string;
+  customTagName!: string;
+  customTagDescription!: string;
+  wikiObject = new WikiObject();
 
-  constructor(private router: ActivatedRoute, private _searchService:SearchService, private _autoCompleteService:AutocompleteService) { }
+  constructor(private router: ActivatedRoute, private _searchService:SearchService
+    ,private _autoCompleteService:AutocompleteService, private fb : FormBuilder) { }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     
     console.log(this.router.snapshot.params);
     this.articleID = this.router.snapshot.params.id;
@@ -44,5 +38,54 @@ export class ArticleComponent implements OnInit {
       },
       error => console.log("exception occured")   
     );
+    this.initForm();
   }
+
+   getWikiDatas(): any{
+     this._autoCompleteService.search(this.query).subscribe(
+       data =>  {
+        console.log("data recieved") 
+        console.log(data) 
+        this.wikiOptions = data.search;
+       },
+       error => {
+        console.log("noo error")
+       }
+     )
+   }
+
+   initForm(){
+
+      this.formGroup = this.fb.group({
+        'wikidata' : ['']
+      })
+
+      this.formGroup.get('wikidata')?.valueChanges.subscribe(response => {
+        console.log('inittt')
+        this.getWikiDatas();
+      })
+   }
+
+   tagArticle(){
+
+    this.wikiObject.customTagName = this.customTagName;
+    this.wikiObject.customDescription = this.customTagDescription;
+    console.log(this.wikiObject)
+   }
+
+   displayFn(wikiObject: WikiObject): string {
+    return wikiObject? wikiObject.description: wikiObject;
+  }
+}
+
+export class WikiObject {
+
+  public id!: string;
+  label!: string;
+  url!: string;
+  description!: string;
+  customTagName!: string;
+  customDescription!: string;
+
+  constructor() { }
 }

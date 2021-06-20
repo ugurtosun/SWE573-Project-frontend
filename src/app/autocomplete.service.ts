@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -8,17 +9,13 @@ import { Observable } from 'rxjs';
 export class AutocompleteService {
 
   constructor(private http:HttpClient) { }
-
+  
   search(query: string): Observable<any> {
-    const url = 'https://api.github.com/search/repositories';
-    return this.http
-      .get<any>(url, {
-        observe: 'response',
-        params: {
-          q: query,
-          sort: 'stars',
-          order: 'desc'
-        }
-      });
+
+    let params = new HttpParams();
+    params = params.append('search', query);
+
+    const url = 'https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&language=en';
+    return this.http.get<any>(url, {params: params});
   }
 }

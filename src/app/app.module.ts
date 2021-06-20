@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginService } from './login.service';
@@ -14,7 +13,13 @@ import { SearchService } from './search.service';
 import { SearchComponent } from './search/search.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ArticleComponent } from './article/article.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AutocompleteService } from './autocomplete.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -31,12 +36,18 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     HttpClientModule,
     RouterModule,
     MDBBootstrapModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    BrowserModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     RegisterService,
     SearchService,
-    LoginService
+    LoginService,
+    AutocompleteService
   ],
   bootstrap: [AppComponent]
 })

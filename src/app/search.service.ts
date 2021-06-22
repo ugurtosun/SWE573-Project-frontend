@@ -19,7 +19,7 @@ export class SearchService {
     params = params.append('isAdvanced', true);
 
     console.log("search service is called")
-    return this.http.get<any>("http://localhost:8080/search/searchArticle", {params: params});
+    return this.http.get<any>("http://ec2-18-191-214-254.us-east-2.compute.amazonaws.com:8080/search/searchArticle", {params: params});
     
   }
 
@@ -28,7 +28,7 @@ export class SearchService {
     let params = new HttpParams();
     params = params.append('articleIDs', id);
     console.log("getArticle service is called");
-    return this.http.get<any>("http://localhost:8080/search/getArticle", {params: params});
+    return this.http.get<any>("http://ec2-18-191-214-254.us-east-2.compute.amazonaws.com:8080/search/getArticle", {params: params});
   }
 
 }

@@ -86,6 +86,7 @@ export class ArticleComponent implements OnInit {
       data =>  {
        console.log("data recieved") 
        console.log(data)
+       location.reload();
       },
       error => {
        console.log("noo error")

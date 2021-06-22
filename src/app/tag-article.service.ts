@@ -21,7 +21,7 @@ export class TagArticleService {
     params = params.append('articleID', articleID);
 
     console.log("Tag article service is called")
-    return this.http.get<any>("http://localhost:8080/tags/createTag", {params: params});
+    return this.http.get<any>("http://ec2-18-191-214-254.us-east-2.compute.amazonaws.com:8080/tags/createTag", {params: params});
 
   }
 }

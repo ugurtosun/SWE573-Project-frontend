@@ -1,27 +1,23 @@
-# MedipubUi
+# SWE573-Project
+This repository is prepared for educational purpose in the scope of SWE-573 Software Development Practice Course. The repository includes project code, documentation and additional resources for frontend part of project. 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.4.
+Project description,requirements, user scenarios, mockups and detailed information is placed at Wikipage of backend project.
 
-## Development server
+ * [WikiPage](https://github.com/ugurtosun/SWE573-Project/wiki)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+For Angular front-end project please visit repository:
 
-## Code scaffolding
+ * [Backend Repository](https://github.com/ugurtosun/SWE573-Project)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Project is running at AWS Server with URL: (http://ec2-18-191-214-254.us-east-2.compute.amazonaws.com/)
 
-## Build
+### Important Bug
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Unfortunately, project has a crucial known bug. Because of CROSS Origin Policy of Spring Boot requests are not handled with default browser. 
 
-## Running unit tests
+To test project, you will need run chrome with command; Otherwise requests will be blocked by Spring Security.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+google-chrome --disable-web-security --user-data-dir="/"
+```
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
